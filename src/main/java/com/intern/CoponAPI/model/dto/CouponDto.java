@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Data
 public class CouponDto {
-    private Integer id;
+  //  private Integer id;
     private String code;
     private DiscountType discount_type;
     private String discount_value;

@@ -21,7 +21,9 @@ public class CouponServiceImpl implements CouponService{
 
     private final CouponMapper couponMapper;
 
-    public Coupon createCoupon(Coupon coupon){
+    public Coupon createCoupon(CouponDto couponDto){
+
+        Coupon coupon=couponMapper.toEntity(couponDto);
         if(couponRepository.existsByCode(coupon.getCode())){
             throw new ValidationException("Coupon Already exist");
         }else {
@@ -34,8 +36,8 @@ public class CouponServiceImpl implements CouponService{
         return couponRepository.findAll();
     }
 
-    public CouponDto getCouponById(Long couponId){
-        Optional<Coupon> coupon = couponRepository.findById(couponId);
-        return couponMapper.toDTO(coupon.get());
+    public Optional<Coupon> getCouponById(Long couponId){
+
+        return couponRepository.findById(couponId);
     }
 }

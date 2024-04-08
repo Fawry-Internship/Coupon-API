@@ -4,9 +4,10 @@ import com.intern.CoponAPI.entity.Coupon;
 import com.intern.CoponAPI.model.dto.CouponDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CouponService {
-    Coupon createCoupon(Coupon coupon);
+    Coupon createCoupon(CouponDto couponDto);
     List<Coupon> viewAllCoupons();
-    CouponDto getCouponById(Long couponId);
+    Optional<Coupon> getCouponById(Long couponId);
 }

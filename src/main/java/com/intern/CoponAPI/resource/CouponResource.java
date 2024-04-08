@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("coupon")
@@ -17,8 +18,8 @@ public class CouponResource {
     private final CouponService couponService;
 
     @PostMapping("create")
-    public ResponseEntity<?> createdCoupon(@RequestBody Coupon coupon){
-        Coupon createdCoupon = couponService.createCoupon(coupon);
+    public ResponseEntity<?> createdCoupon(@RequestBody CouponDto couponDto){
+        Coupon createdCoupon = couponService.createCoupon(couponDto);
         return ResponseEntity.ok(createdCoupon);
     }
 
@@ -28,8 +29,8 @@ public class CouponResource {
     }
 
     @GetMapping("{couponId}")
-    public ResponseEntity<CouponDto> getCouponById(@PathVariable Long couponId){
-        CouponDto coupon= couponService.getCouponById(couponId);
+    public ResponseEntity<Optional<Coupon>> getCouponById(@PathVariable Long couponId){
+        Optional<Coupon> coupon= couponService.getCouponById(couponId);
         return ResponseEntity.ok(coupon);
     }
 }
