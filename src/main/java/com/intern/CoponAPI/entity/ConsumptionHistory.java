@@ -14,13 +14,23 @@ public class ConsumptionHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime consumption_date;
-    private Integer discount_value;
-    private Long order_id;
-    private String customer_email;
+    private LocalDateTime consumptionDate;
+    private Integer discountValue;
+    private Long orderId;
+    private String customerEmail;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id")
     @JsonIgnore
     private Coupon coupon;
 
+    @Override
+    public String toString() {
+        return "ConsumptionHistory{" +
+                "id=" + id +
+                ", consumption_date=" + consumptionDate +
+                ", discount_value=" + discountValue +
+                ", order_id=" + orderId +
+                ", customer_email='" + customerEmail + '\'' +
+                '}';
+    }
 }

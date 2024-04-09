@@ -18,15 +18,14 @@ public class Coupon {
     private Long id;
     private String code;
     @Enumerated(EnumType.STRING)
-    private DiscountType discount_type;
-    private Integer discount_value;
-    private LocalDate valid_from;
-    private LocalDate valid_to;
-    private Integer usage_limit;
-    private Integer remaining_count;
-    private LocalDateTime created_at;
+    private DiscountType discountType;
+    private Integer discountValue;
+    private LocalDate validFrom;
+    private LocalDate validTo;
+    private Integer usageLimit;
+    private Integer remainingCount;
+    private LocalDateTime createdAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "coupon")
     @JsonIgnore
     private List<ConsumptionHistory> consumptionHistories;
-
 }

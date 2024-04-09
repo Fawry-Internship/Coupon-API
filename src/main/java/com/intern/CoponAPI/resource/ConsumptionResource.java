@@ -4,6 +4,8 @@ import com.intern.CoponAPI.model.ConsumptionRequest;
 import com.intern.CoponAPI.entity.ConsumptionHistory;
 import com.intern.CoponAPI.service.ConsumptionHistoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,12 +15,12 @@ import java.util.List;
 public class ConsumptionResource {
     private final ConsumptionHistoryService consumptionHistoryService;
     @GetMapping("consumption-history/{couponId}")
-    public List<ConsumptionHistory> getCouponConsumptionHistories(@PathVariable Long couponId){
-        return consumptionHistoryService.getCouponConsumptionHistories(couponId);
+    public ResponseEntity<List<ConsumptionHistory>> getCouponConsumptionHistories(@PathVariable Long couponId){
+        return ResponseEntity.ok(consumptionHistoryService.getCouponConsumptionHistories(couponId));
     }
 
     @PostMapping("consume")
-    public Double consumeCoupon (@RequestBody ConsumptionRequest consumptionRequest){
-        return consumptionHistoryService.consumeCoupon(consumptionRequest);
+    public ResponseEntity<Double> consumeCoupon (@RequestBody ConsumptionRequest consumptionRequest){
+        return new ResponseEntity<>(consumptionHistoryService.consumeCoupon(consumptionRequest), HttpStatus.ACCEPTED);
     }
 }

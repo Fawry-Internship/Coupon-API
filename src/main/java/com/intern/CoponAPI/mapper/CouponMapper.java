@@ -1,12 +1,13 @@
 package com.intern.CoponAPI.mapper;
 
 import com.intern.CoponAPI.entity.Coupon;
-import com.intern.CoponAPI.model.dto.CouponDto;
+import com.intern.CoponAPI.model.dto.CouponRequestDTO;
+import com.intern.CoponAPI.model.dto.CouponResponseDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CouponMapper {
-    CouponDto toDTO(Coupon coupon);
+    CouponResponseDTO toDTO(Coupon coupon);
 
-    Coupon toEntity(CouponDto couponDto);
+    Coupon toEntity(CouponRequestDTO couponRequestDTO);
 }
