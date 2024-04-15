@@ -16,13 +16,26 @@ public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
     private String code;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private DiscountType discountType;
+
+    @Column(nullable = false)
     private Integer discountValue;
+
+    @Column(nullable = false)
     private LocalDate validFrom;
+
+    @Column(nullable = false)
     private LocalDate validTo;
+
+    @Column(nullable = false)
     private Integer usageLimit;
+
     private Integer remainingCount;
     private LocalDateTime createdAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "coupon")
