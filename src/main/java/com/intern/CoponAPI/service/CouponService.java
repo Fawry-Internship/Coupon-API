@@ -14,4 +14,8 @@ public interface CouponService {
     Boolean validateCoupon(String couponCode);
 
     Double calcAmountAfterCouponDiscount(String couponCode, double amount);
+
+    String updateCoupon(Long couponId, CouponRequestDTO couponRequestDTO);
+
+    String deleteCouponByID(Long couponId);
 }

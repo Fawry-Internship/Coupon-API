@@ -84,6 +84,7 @@ public class CouponServiceImpl implements CouponService{
                     log.error("This coupon with code {}, doesn't Exist!", couponCode);
                     return new RecordNotFoundException("This coupon with code "+ couponCode + "doesn't exist");
                 });
+
         DiscountType discountType = coupon.getDiscountType();
         int discountValue = coupon.getDiscountValue();
         double amountAfterDiscount = 0;
@@ -94,5 +95,35 @@ public class CouponServiceImpl implements CouponService{
             amountAfterDiscount = amount - actualDiscountValue;
         }
         return amountAfterDiscount;
+    }
+
+    @Override
+    public String updateCoupon(Long couponId, CouponRequestDTO couponRequestDTO) {
+        Coupon existCoupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> {
+                    log.error("This coupon with id {} doesn't exist", couponId);
+                   return new RecordNotFoundException("This coupon with id " + couponId + " doesn't exist");
+                });
+        log.info("the coupon before update {}", existCoupon);
+        Coupon updatedCoupon = couponMapper.toEntity(couponRequestDTO);
+        updatedCoupon.setId(couponId);
+        updatedCoupon.setRemainingCount(updatedCoupon.getUsageLimit() - (existCoupon.getUsageLimit() - existCoupon.getRemainingCount()));
+        updatedCoupon.setCreatedAt(existCoupon.getCreatedAt());
+        couponRepository.save(updatedCoupon);
+        log.info("coupon after update {}", updatedCoupon);
+
+        return "success";
+    }
+
+    @Override
+    public String deleteCouponByID(Long couponId) {
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(() -> {
+                    log.error("This coupon with id {} Already doesn't exist ", couponId);
+                   return new RecordNotFoundException("this coupon with id " + couponId + " already doesn't exist!");
+                });
+        couponRepository.delete(coupon);
+        log.info("deleted successfully");
+        return "success";
     }
 }

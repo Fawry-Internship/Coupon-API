@@ -36,6 +36,18 @@ public class CouponResource {
         return ResponseEntity.ok(coupon);
     }
 
+    @DeleteMapping("{couponId}")
+    public ResponseEntity<String> deleteCouponByID(@PathVariable Long couponId){
+        return ResponseEntity.ok(couponService.deleteCouponByID(couponId));
+    }
+
+    @PutMapping("{couponId}")
+    public ResponseEntity<String> updateCoupon(@PathVariable Long couponId, @RequestBody CouponRequestDTO couponRequestDTO){
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(couponService.updateCoupon(couponId, couponRequestDTO));
+    }
+
     @GetMapping("validation")
     public ResponseEntity<Boolean>validateCoupon(@RequestParam String couponCode) {
         return ResponseEntity.ok(couponService.validateCoupon(couponCode));
